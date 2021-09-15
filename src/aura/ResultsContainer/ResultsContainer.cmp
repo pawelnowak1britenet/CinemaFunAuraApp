@@ -1,0 +1,23 @@
+<aura:component controller="CF_SearchForMovieActor"
+                description="ResultsContainer"
+                implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
+                access="global"
+>
+    <aura:attribute name="ApiResults" type="List"/>
+    <aura:attribute name="searchMovies" type="Boolean"/>
+
+    <aura:handler event="c:auraEvent" action="{!c.funkcjaDoZlapaniaEventu}"/>
+
+    <lightning:card>
+        <div class="c-container">
+            <lightning:layout multipleRows="true">
+                <aura:iteration items="{!v.ApiResults}" var="item">
+                    <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="4" largeDeviceSize="3"
+                                          padding="around-small">
+                        <c:Result item="{!item}" searchMovies="{!v.searchMovies}"/>
+                    </lightning:layoutItem>
+                </aura:iteration>
+            </lightning:layout>
+        </div>
+    </lightning:card>
+</aura:component>

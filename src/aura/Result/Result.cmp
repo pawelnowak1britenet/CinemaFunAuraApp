@@ -1,0 +1,33 @@
+<aura:component description="Result" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global">
+
+    <aura:attribute name="item" type="Object"/>
+
+<!--    //czy przekazywać atrybutem czy z eventu ??-->
+    <aura:attribute name="searchMovies" type="Boolean"/>
+
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    <div class="slds-box slds-col">
+        <div class="content">
+            <aura:if isTrue="{!v.searchMovies == true}">
+                MOVIE
+                <!--            MOVIE-->
+                <h2>{!v.item.original_title}</h2>
+                <aura:if isTrue="{!v.item.backdrop_path != null}">
+                    <img src="{!'https://www.themoviedb.org/t/p/w220_and_h330_face' + v.item.backdrop_path}" />
+                </aura:if>
+                <p>{!v.item.popularity}</p>
+                <p>{!v.item.vote_average}</p>
+            <aura:set attribute="else">
+                ACTOR
+                <!--                ACTOR-->
+                <h2>{!v.item.name}</h2>
+                <aura:if isTrue="{!v.item.profile_path != null}">
+                    <img src="{!'https://www.themoviedb.org/t/p/w300_and_h450_bestv2' + v.item.profile_path}" />
+                </aura:if>
+                <p>{!v.item.popularity}</p>
+            </aura:set>
+        </aura:if>
+    </div>
+        <lightning:button class="show" variant="brand" label="Pokaż szczegóły" title="Brand action" onclick="{! c.showModal }" />
+    </div>
+</aura:component>
