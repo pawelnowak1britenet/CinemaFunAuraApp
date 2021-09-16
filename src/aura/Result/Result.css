@@ -1,11 +1,29 @@
 .THIS {
-    height:550px;
-    width:90%;
+    transition:transform 0.2s linear;
+    height:400px;
+    width:auto;
     margin-left:3%;
     margin-right:3%;
     text-align:center;
-    border: solid 2px #af1815;
+    border: solid 2px #0064ad;
+    cursor:pointer;
+    overflow:hidden;
 }
+
+.THIS .content{
+
+}
+
+.THIS img{
+width:245px;
+    border-radius:0.25rem;
+    transition:transform 0.2s linear;
+}
+
+.THIS:hover img{
+    transform:scale(1.15);
+}
+
 .THIS h2{
     margin:10px;
     font-size:18px;

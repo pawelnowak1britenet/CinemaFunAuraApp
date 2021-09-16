@@ -3,34 +3,35 @@
                 access="global">
 
     <aura:attribute name='queryString' type='String' description='Searched query'/>
-    <aura:registerEvent name="appEvent" type="c:auraEvent"/>
     <aura:attribute name="options" type="List" default="[
             {'label': 'Movie', 'value': 'true'},
             {'label': 'Actor', 'value': 'false'}
             ]"/>
 
     <aura:attribute name="searchMovies" type="String" default="true"/>
-    <!--    zdarzenie wykonyane na INIT do analizy i wyrzucenia i PUKAM do API-->
-<!--    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>-->
+    <aura:registerEvent name="appEvent" type="c:auraEvent"/>
+    <aura:registerEvent name="c:toggleSpinner" type="c:toggleSpinner"/>
 
     <lightning:card>
         <div class="slds-grid slds-m-bottom_large">
-            <div class="slds-col slds-size_2-of-12">
-            <lightning:radioGroup name="Wybierz Movie czy Aktor"
-                                  label="Radio Button Group"
-                                  options="{! v.options }"
-                                  value="{! v.searchMovies }"
-                                  type="button"
-            />
+            <div class="MovieOrActorToggler">
+                <lightning:radioGroup name="SetMovieOrActor"
+                                      label=""
+                                      options="{! v.options }"
+                                      value="{! v.searchMovies }"
+                                      type="button"
+                />
+
             </div>
-            <div class="slds-col slds-size_7-of-12">
-                <!--            // input VALUE = parametr-->
-                <lightning:input value="{! v.queryString}" type="text" name="input1" label="Wyszukaj film lub aktora"
-                                 placeholder="Co chcesz wyszukać ?"/>
+            <div class="SearchInput">
+                <lightning:input value="{! v.queryString}" type="search" name="input1" label=""
+                                 placeholder="Search ..."/>
+<!--                //custom labelka-->
+
             </div>
 
-            <div class="slds-col slds-size_2-of-12">
-                <lightning:button variant="brand" label="Pobierz Filmy z API" title="Brand action"
+            <div class="btnFind">
+                <lightning:button variant="brand" label="Search" title="Brand action"
                                   onclick="{! c.onSearchClick }"/>
             </div>
         </div>

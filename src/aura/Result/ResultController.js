@@ -10,8 +10,12 @@
         showModal: function(component, event, helper) {
             var modalBody;
             var searchMovies = component.get("v.searchMovies");
+            var item = component.get("v.item");
 
-            $A.createComponent("c:ResultDetails", {},
+            $A.createComponent("c:ResultDetails", {
+                type : searchMovies ? 'movie' : 'actor',
+                recordId : item.id
+            },
                function(content, status) {
                    if (status === "SUCCESS") {
                        modalBody = content;

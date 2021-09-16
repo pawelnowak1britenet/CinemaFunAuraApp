@@ -1,11 +1,12 @@
 public class CF_MovieDbApiHandler {
     private String API_KEY = '8ca5f309e22323994439de7dfac4a86a';
-    private final static String BASE_URL = 'https://api.themoviedb.org/3/search/';
+    private final static String BASE_URL_FOR_Search = 'https://api.themoviedb.org/3/search/';
 //    example for MOVIE --->>> 'https://api.themoviedb.org/3/search/movie?api_key=8ca5f309e22323994439de7dfac4a86a&query=titanic&page=1';
 
+    //REFACTOR, jedna metoda do budowania URLa, na search na movie detail itd.
     public String buildUrl(String typeOfObjectToSearch, String movieName, Integer page) {
         String url;
-        url = BASE_URL + typeOfObjectToSearch + '?api_key=' + API_KEY + '&query=' + movieName + '&page=' + page;
+        url = BASE_URL_FOR_Search + typeOfObjectToSearch + '?api_key=' + API_KEY + '&query=' + movieName + '&page=' + page;
         System.debug(url);
         return url;
     }

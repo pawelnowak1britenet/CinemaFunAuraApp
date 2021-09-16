@@ -1,0 +1,3 @@
+<aura:event type="COMPONENT" description="toggleSpinner">
+<!--    <aura:attribute name="isSpinnerShown" type="Boolean"/>-->
+</aura:event>

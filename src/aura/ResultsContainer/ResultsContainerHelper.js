@@ -6,6 +6,9 @@
         } else {
             getSearchResultsAction = component.get("c.getActorsList");
         }
+
+        //refaktor zamiast rozdzielać TUTAJ to if a Apexie,
+//        część metody z ControleraJS przenieść do helperJS
         getSearchResultsAction.setParams({
             "searchQuery": queryString
         });

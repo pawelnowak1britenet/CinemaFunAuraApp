@@ -13,7 +13,11 @@
 //              console.log(JSON.stringify(apexResponse.getReturnValue()));
               component.set("v.ApiResults", result);
               console.log(result);
-              debugger;
+
+            //EVvent co robi ? Wyłącza spinner ?
+             var cmpEvent = component.getEvent("cmpEvent");
+                 cmpEvent.fire();
+
               // jeśli pusta lista to ustaw flagę -> wyświetl komunikat o braku danych i np przycisk dodaj aktora
               // result.length - i wtedy SEARCH BEFORE CREATE
           }
