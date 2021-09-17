@@ -5,6 +5,7 @@
 >
     <aura:attribute name="ApiResults" type="List"/>
     <aura:attribute name="searchMovies" type="Boolean"/>
+    <aura:attribute name="showSBCWindow" type="Boolean" default="false"/>
 
     <aura:handler event="c:auraEvent" action="{!c.funkcjaDoZlapaniaEventu}"/>
     <aura:registerEvent name="toggleSpinner" type="c:toggleSpinner"/>
@@ -18,6 +19,13 @@
                         <c:Result item="{!item}" searchMovies="{!v.searchMovies}"/>
                     </lightning:layoutItem>
                 </aura:iteration>
+
+<!--    wyświetlanie                //przekazanie gdy pusta lista-->
+                <aura:if isTrue="{!v.showSBCWindow}">
+                    <div> <p> nie znalezniono, filmu chcesz go dodać ?</p></div>
+                </aura:if>
+
+
             </lightning:layout>
         </div>
     </lightning:card>

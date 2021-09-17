@@ -47,9 +47,9 @@ public with sharing class CF_MovieDetail {
         public String iso_639_1;	//en
         public String name;	//English
     }
-    public static fromJSON parse(String json){
-        return (fromJSON) System.JSON.deserialize(json, fromJSON.class);
-    }
+//    public static fromJSON parse(String json){
+//        return (fromJSON) System.JSON.deserialize(json, fromJSON.class);
+//    }
 
 
 }

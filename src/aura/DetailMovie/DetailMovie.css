@@ -1,0 +1,15 @@
+.THIS {
+
+}
+
+.THIS .containerForImg{
+    width:250px;
+    height:400px;
+    background-color:gray;
+}
+
+.THIS .anotherActorFromCurrentMovie{
+    cursor:pointer;
+    margin:30px;
+    display:inline-block;
+}

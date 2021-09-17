@@ -1,21 +1,32 @@
 ({
-    //zrobić z tego skutecznyh strzał do API
+    doInit: function(component, event, helper) {
 
-//    var callback = function(apexResponse, component){
-//              let state = apexResponse.getState();
-//              let result = apexResponse.getReturnValue();
-//              if(state == 'SUCCESS') {
-//    //              console.log(JSON.stringify(apexResponse.getReturnValue()));
-//                  component.set("v.ApiResults", result);
-//                  console.log(result);
-//
-//                 var cmpEvent = component.getEvent("cmpEvent");
-//                     cmpEvent.fire();
+            // ustawia warunek SearchMovie. Movie/Actor, pobiera z komponentu, a nie z eventu ?
+//            var searchMovies = component.get("v.searchMovies") == "true";
+//            component.set("v.searchMovies", searchMovies);
 
-                  // jeśli pusta lista to ustaw flagę -> wyświetl komunikat o braku danych i np przycisk dodaj aktora
-                  // result.length - i wtedy SEARCH BEFORE CREATE
-//              }
+            //pobranie current movieId
+            let currentMovieId = component.get("v.recordId");
+//            console.log('To jest przekazane jako movieId do APEXa ' + currentMovieId);
+            //call to API with MovieId
+            let movieCastActorsList = component.get("c.getMovieCredits");
 
+            movieCastActorsList.setParams({
+                "movieId" : currentMovieId
+            });
+
+            movieCastActorsList.setCallback(this, function(response) {
+//                console.log('To jest response z OBSADĄ, HURA >>>>>>>>>>> ' + response);
+                if (response.getState() === "SUCCESS") {
+                    component.set("v.movieCast", response.getReturnValue());
+                }
+                else {
+                    console.log("Failed with state: " + response.getState());
+                }
+            });
+
+            $A.enqueueAction(movieCastActorsList);
+        },
 
     addToFavorites : function(component, event, helper){
         component.set("v.isFavorite", true);
