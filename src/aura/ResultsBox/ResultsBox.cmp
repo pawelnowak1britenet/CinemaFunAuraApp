@@ -1,13 +1,15 @@
 <aura:component controller="CF_SearchForMovieActor"
-                description="ResultsContainer"
+                description="ResultsBox"
                 implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
                 access="global"
 >
     <aura:attribute name="ApiResults" type="List"/>
-    <aura:attribute name="searchMovies" type="Boolean"/>
+    <aura:attribute name="searchMovies" type="String"/>
+    <aura:attribute name="inputQuery" type="String"/>
     <aura:attribute name="showSBCWindow" type="Boolean" default="false"/>
 
-    <aura:handler event="c:auraEvent" action="{!c.funkcjaDoZlapaniaEventu}"/>
+    <aura:handler event="c:eventPassQueryStringAndSearchType" action="{!c.catchQueryAndReturnResultsFromApi}"/>
+<!--    to wyłącza spiner ?? -->
     <aura:registerEvent name="toggleSpinner" type="c:toggleSpinner"/>
 
     <lightning:card>
@@ -20,7 +22,7 @@
                     </lightning:layoutItem>
                 </aura:iteration>
 
-<!--    wyświetlanie                //przekazanie gdy pusta lista-->
+                <!--    wyświetlanie                //przekazanie gdy pusta lista-->
                 <aura:if isTrue="{!v.showSBCWindow}">
                     <div> <p> nie znalezniono, filmu chcesz go dodać ?</p></div>
                 </aura:if>

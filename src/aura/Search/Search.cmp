@@ -4,13 +4,13 @@
 
     <aura:attribute name='queryString' type='String' description='Searched query'/>
     <aura:attribute name="options" type="List" default="[
-            {'label': 'Movie', 'value': 'true'},
-            {'label': 'Actor', 'value': 'false'}
+            {'label': 'Movie', 'value': 'Movie'},
+            {'label': 'Actor', 'value': 'Actor'}
             ]"/>
+    <aura:attribute name="searchMovies" type="String" default="Movie"/>
 
-    <aura:attribute name="searchMovies" type="String" default="true"/>
-    <aura:registerEvent name="appEvent" type="c:auraEvent"/>
-    <aura:registerEvent name="c:toggleSpinner" type="c:toggleSpinner"/>
+    <aura:registerEvent name="eventPassQueryStringAndSearchType" type="c:eventPassQueryStringAndSearchType"/>
+    <aura:registerEvent name="toggleSpinner" type="c:toggleSpinner"/>
 
     <lightning:card>
         <div class="slds-grid slds-m-bottom_large">
@@ -27,7 +27,6 @@
                 <lightning:input value="{! v.queryString}" type="search" name="input1" label=""
                                  placeholder="Search ..."/>
 <!--                //custom labelka-->
-
             </div>
 
             <div class="btnFind">

@@ -3,13 +3,12 @@
                 access="global">
 
     <aura:attribute name="item" type="Object"/>
-    <aura:attribute name="searchMovies" type="Boolean"/>
+    <aura:attribute name="searchMovies" type="String"/>
 
     <lightning:overlayLibrary aura:id="overlayLib"/>
 
     <div class="slds-box slds-col" onclick="{! c.showModal }">
-        <aura:if isTrue="{! equals(v.searchMovies, true) }">
-<!--        <h2>{!v.item.original_title}</h2>-->
+        <aura:if isTrue="{! equals(v.searchMovies, 'Movie') }">
 
             <aura:if isTrue="{! equals(v.item.backdrop_path, null) }">
                 <img src="{!$Resource.defaultMovie}"/>
@@ -22,7 +21,7 @@
             <p>{!v.item.vote_average}</p>
         </aura:if>
 
-        <aura:if isTrue="{! equals(v.searchMovies, false) }">
+        <aura:if isTrue="{! equals(v.searchMovies, 'Actor') }">
             <h2>{!v.item.name}</h2>
             <aura:if isTrue="{!v.item.profile_path != null}">
                 <img src="{!'https://www.themoviedb.org/t/p/w300_and_h450_bestv2' + v.item.profile_path}"/>

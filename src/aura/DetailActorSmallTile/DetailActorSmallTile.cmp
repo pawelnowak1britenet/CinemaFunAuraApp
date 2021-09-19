@@ -1,15 +1,15 @@
 <aura:component description="DetailActorSmallTile">
     <aura:attribute name="recordId" type="String" access="public"/>
+    <aura:attribute name="searchType" type="String" access="public"/>
     <aura:attribute name="actorTile" type="Object"/>
+    <aura:registerEvent name="passDataToResultDetail" type="c:passDataToResultDetail"/>
 
     <div class="detailActorSmallTile anotherActorFromCurrentMovie" onclick="{! c.openActorDetail}">
         <aura:if isTrue="{! equals(v.actorTile.profile_path, null) }">
             <img src="{!$Resource.defaultMovie}"/>
             <aura:set attribute="else">
-
                 <img src="{!'https://www.themoviedb.org/t/p/w220_and_h330_face' + v.actorTile.profile_path}"/>
             </aura:set>
         </aura:if>
-        <p> https://www.themoviedb.org/t/p/w220_and_h330_face{!v.actorTile.profile_path}</p>
     </div>
 </aura:component>

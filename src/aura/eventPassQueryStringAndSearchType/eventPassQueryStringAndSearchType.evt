@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="eventPassQueryStringAndSearchType">
+    <aura:attribute name="inputQuery" type="String"/>
+    <aura:attribute name="searchMovies" type="String"/>
+</aura:event>

@@ -1,14 +1,7 @@
 ({
     doInit: function(component, event, helper) {
 
-            // ustawia warunek SearchMovie. Movie/Actor, pobiera z komponentu, a nie z eventu ?
-//            var searchMovies = component.get("v.searchMovies") == "true";
-//            component.set("v.searchMovies", searchMovies);
-
-            //pobranie current movieId
             let currentMovieId = component.get("v.recordId");
-//            console.log('To jest przekazane jako movieId do APEXa ' + currentMovieId);
-            //call to API with MovieId
             let movieCastActorsList = component.get("c.getMovieCredits");
 
             movieCastActorsList.setParams({
@@ -31,7 +24,7 @@
     addToFavorites : function(component, event, helper){
         component.set("v.isFavorite", true);
         component.set("v.isBlackList", false);
-        helper.addToFavorites(component, event, helper);
+        helper.addToFavorites(component, event);
     },
     deleteFavorite : function(component, event, helper){
          component.set("v.isFavorite", false);

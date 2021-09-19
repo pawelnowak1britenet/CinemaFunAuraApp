@@ -1,4 +1,4 @@
 <aura:event type="APPLICATION" description="passDataToResultDetail">
-    <aura:attribute name="type" type="String"/>
+    <aura:attribute name="searchType" type="String"/>
     <aura:attribute name="recordId" type="String"/>
 </aura:event>

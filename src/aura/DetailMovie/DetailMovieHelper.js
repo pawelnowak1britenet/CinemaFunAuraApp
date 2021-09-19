@@ -1,5 +1,5 @@
 ({
-    doInit : function(component, event, helper) {
+    doInit : function(component, event) {
 //        CALLBACK do funkcji
         var callback = function(apexResponse, component){
           let state = apexResponse.getState();
@@ -19,7 +19,7 @@
     },
 
 
-    addToFavorites : function(component, event, helper){
+    addToFavorites : function(component, event){
         var addMovieToSpecialList = component.get("c.addMovieToSpecialList");
         var recordId = component.get("v.recordId");
 
