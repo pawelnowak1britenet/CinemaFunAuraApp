@@ -1,23 +1,34 @@
 .THIS {
-    transition:transform 0.2s linear;
-    height:400px;
-    width:auto;
-    margin-left:3%;
-    margin-right:3%;
+    transition:all 0.2s linear;
+    height:360px;
+    width:245px;
+    margin:auto;
+    padding:0;
     text-align:center;
-    border: solid 2px #0064ad;
     cursor:pointer;
     overflow:hidden;
+    border:0;
 }
 
 .THIS .content{
-
 }
 
 .THIS img{
-width:245px;
+    width:245px;
     border-radius:0.25rem;
-    transition:transform 0.2s linear;
+    transition:all 0.2s linear;
+    object-fit:cover;
+    object-position: center;
+}
+.THIS .searchResult{
+    position: relative;
+}
+.THIS .searchResult .textContainer{
+    position: absolute;
+    color:#fff;
+    font-size:12px;
+    right:10px;
+    bottom: 10px;
 }
 
 .THIS:hover img{

@@ -29,10 +29,19 @@
 <!--                //custom labelka-->
             </div>
 
-            <div class="btnFind">
+            <div class="btnSearch">
                 <lightning:button variant="brand" label="Search" title="Brand action"
                                   onclick="{! c.onSearchClick }"/>
             </div>
+
+            <div class="btnsFavouriveBlackList">
+                <lightning:button variant="brand" label="Favourities" title="Brand action"
+                                  onclick="{! c.showFavourities }"/>
+
+                <lightning:button variant="brand" label="Black List" title="Dislike"
+                                  onclick="{! c.showBlackList }"/>
+            </div>
         </div>
+
     </lightning:card>
 </aura:component>

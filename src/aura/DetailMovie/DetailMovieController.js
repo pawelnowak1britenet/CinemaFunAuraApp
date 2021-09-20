@@ -1,11 +1,10 @@
 ({
     doInit: function(component, event, helper) {
 
-            let currentMovieId = component.get("v.recordId");
             let movieCastActorsList = component.get("c.getMovieCredits");
 
             movieCastActorsList.setParams({
-                "movieId" : currentMovieId
+                "movieId" : component.get("v.recordId")
             });
 
             movieCastActorsList.setCallback(this, function(response) {

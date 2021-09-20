@@ -1,3 +1,11 @@
 .THIS {
-display:flex;
+    display:flex;
+}
+
+.THIS .otherActorMovie{
+    cursor:pointer;
+    display:inline-block;
+}
+.THIS .listOFMovies{
+    overflow: auto;
 }

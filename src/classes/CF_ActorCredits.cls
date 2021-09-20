@@ -4,12 +4,12 @@ public with sharing class CF_ActorCredits {
 //    example for MOVIE credits --->>> 'https://api.themoviedb.org/3/person/597/credits?api_key=8ca5f309e22323994439de7dfac4a86a';
 
     @AuraEnabled
-    public static List<CF_MovieCredits_DTO> getActorCredits(String movieId) {
-        CF_MovieCredits_DTO[] movieCastActorsList = new CF_MovieCredits_DTO[]{};
+    public static List<CF_Actor_KnownFor_DTO> getActorDetails(String actorId) {
+        CF_Actor_KnownFor_DTO[] actorOtherMoviesList = new CF_Actor_KnownFor_DTO[]{};
 
         Http httpActorCredits = new Http();
         HttpRequest request = new HttpRequest();
-        String url = BASE_URL_FOR_Search_Actor_Credits + movieId + '/credits?api_key=' + API_KEY ;
+        String url = BASE_URL_FOR_Search_Actor_Credits + actorId + '/credits?api_key=' + API_KEY ;
         System.debug(url);
         request.setEndpoint(url);
         request.setMethod('GET');
@@ -23,13 +23,13 @@ public with sharing class CF_ActorCredits {
         System.debug('response.getStatusCode() > ' + response.getStatusCode());
         if (response.getStatusCode() == 200) {
             String properResponse = response.getBody().replace('cast', 'movieCast');
-            CF_PageResults_MovieCredits res = (CF_PageResults_MovieCredits) System.JSON.deserialize(properResponse , CF_PageResults_MovieCredits.class);
-            movieCastActorsList = res.movieCast;
+            CF_PageResults_ActorCredits res = (CF_PageResults_ActorCredits) System.JSON.deserialize(properResponse , CF_PageResults_ActorCredits.class);
+            actorOtherMoviesList = res.movieCast;
             System.debug('res > ' + res);
         }
 
-        System.debug('movieCastActorsList > > > > > > > > > > ' + movieCastActorsList);
+        System.debug('actorOtherMoviesList > > > > > > > > > > ' + actorOtherMoviesList);
 
-        return movieCastActorsList;
+        return actorOtherMoviesList;
     }
 }

@@ -2,14 +2,20 @@
     display:flex;
 }
 
-.THIS .containerForImg{
-    width:250px;
-    height:400px;
-    background-color:gray;
+.THIS .leftSide{
+    position:relative;
+}
+
+.THIS .btnsFavouriteAndBlackList{
+    position:absolute;
+    bottom:0;
 }
 
 .THIS .anotherActorFromCurrentMovie{
     cursor:pointer;
-    margin:30px;
     display:inline-block;
+}
+
+.THIS .listOFActors{
+    overflow: auto;
 }

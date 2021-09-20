@@ -2,6 +2,7 @@
      onSearchClick : function(component, event, helper){
          var cmpEvent = component.getEvent("toggleSpinner");
          cmpEvent.fire();
+
          var newEvent = $A.get("e.c:eventPassQueryStringAndSearchType");
          newEvent.setParams(
              {
@@ -14,7 +15,16 @@
 //         var showSuccessToast = component.get('c.showToast');
 //         $A.enqueueAction(showSuccessToast);
 //       TODO helper.nazwa
-     }
+     },
+
+    showFavourities : function(component, event, helper){
+
+    }
+
+    showBlackList : function(component, event, helper){
+
+    }
+
 
 //     showToast : function(component, event, helper) {
 //         var toastEvent = $A.get("e.force:showToast");

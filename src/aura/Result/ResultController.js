@@ -7,7 +7,6 @@
             $A.createComponent("c:ResultDetails", {
                 searchType : searchMovies,
                 recordId : item.id,
-                urlFoto : item.backdrop_path,
                 item : item
                 },
                 function(content, status) {

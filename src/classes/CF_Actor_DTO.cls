@@ -13,10 +13,11 @@ public with sharing class CF_Actor_DTO {
     @AuraEnabled public boolean adult{ get; set; }
     @AuraEnabled public Integer gender{ get; set; }    //2
     @AuraEnabled public Integer id{ get; set; }    //2963
-    @AuraEnabled public CF_Movie_DTO[] known_for{ get; set; }
+    @AuraEnabled public CF_Actor_KnownFor_DTOcrew[] known_for{ get; set; }
     @AuraEnabled public String known_for_department{ get; set; }    //Acting
     @AuraEnabled public String name{ get; set; }    //Nicolas Cage
     @AuraEnabled public Double popularity{ get; set; }    //24.027
     @AuraEnabled public String profile_path{ get; set; }    ///ar33qcWbEgREn07ZpXv5Pbj8hbM.jpg
+
 
 }

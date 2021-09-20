@@ -9,24 +9,32 @@
 
     <div class="slds-box slds-col" onclick="{! c.showModal }">
         <aura:if isTrue="{! equals(v.searchMovies, 'Movie') }">
-
-            <aura:if isTrue="{! equals(v.item.backdrop_path, null) }">
-                <img src="{!$Resource.defaultMovie}"/>
-                <aura:set attribute="else">
-                    <img src="{!'https://www.themoviedb.org/t/p/w220_and_h330_face' + v.item.backdrop_path}"/>
-                </aura:set>
-            </aura:if>
-
-            <p>{!v.item.popularity}</p>
-            <p>{!v.item.vote_average}</p>
+            <div class="movieResult searchResult">
+                <aura:if isTrue="{! equals(v.item.backdrop_path, null) }">
+                    <img src="{!$Resource.defaultMovie}"/>
+                    <aura:set attribute="else">
+                        <img src="{!'https://www.themoviedb.org/t/p/w220_and_h330_face' + v.item.backdrop_path}"/>
+                    </aura:set>
+                </aura:if>
+                <div class="textContainer">
+                    <h2>{!v.item.title}</h2>
+                    <p>{!v.item.vote_average}</p>
+                    <p>{!v.item.popularity}</p>
+                </div>
+            </div>
         </aura:if>
 
         <aura:if isTrue="{! equals(v.searchMovies, 'Actor') }">
-            <h2>{!v.item.name}</h2>
-            <aura:if isTrue="{!v.item.profile_path != null}">
-                <img src="{!'https://www.themoviedb.org/t/p/w300_and_h450_bestv2' + v.item.profile_path}"/>
-            </aura:if>
-            <p>{!v.item.popularity}</p>
+            <div class="actorResult searchResult">
+                <aura:if isTrue="{!v.item.profile_path != null}">
+                    <img src="{!'https://www.themoviedb.org/t/p/w300_and_h450_bestv2' + v.item.profile_path}"/>
+                </aura:if>
+
+                <div class="textContainer">
+                    <h2>{!v.item.name}</h2>
+                    <p>{!v.item.popularity}</p>
+                </div>
+            </div>
         </aura:if>
 
     </div>

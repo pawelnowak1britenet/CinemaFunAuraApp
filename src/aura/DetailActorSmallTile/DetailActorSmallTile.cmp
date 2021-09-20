@@ -1,6 +1,4 @@
 <aura:component description="DetailActorSmallTile">
-    <aura:attribute name="recordId" type="String" access="public"/>
-    <aura:attribute name="searchType" type="String" access="public"/>
     <aura:attribute name="actorTile" type="Object"/>
     <aura:registerEvent name="passDataToResultDetail" type="c:passDataToResultDetail"/>
 
