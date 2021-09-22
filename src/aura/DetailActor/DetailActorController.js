@@ -2,7 +2,6 @@
 
     doInit: function(component, event, helper) {
         let actorOtherMoviesList = component.get("c.getActorDetails");
-        debugger;
         actorOtherMoviesList.setParams({
             "actorId" : component.get("v.recordId")
         });

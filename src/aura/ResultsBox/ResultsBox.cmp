@@ -7,9 +7,25 @@
     <aura:attribute name="searchMovies" type="String"/>
     <aura:attribute name="inputQuery" type="String"/>
     <aura:attribute name="showSBCWindow" type="Boolean" default="false"/>
+    <aura:attribute name="typeOfResults" type="String"/>
+    <aura:attribute name="pictureSrc" type="String"
+                    default="https://s3-us-west-1.amazonaws.com/sfdc-demo/image-placeholder.png"/>
+    <aura:attribute access="public" name="multiple" type="Boolean" default="false"/>
+    <aura:attribute access="public" name="accept" type="List"
+                    default="['.jpg', '.jpeg', '.pdf','.png']"/>
+    <aura:attribute access="public" name="sObjectId" type="String" default=""/>
+    <aura:attribute access="public" name="disabled" type="Boolean" default="false"/>
+    <aura:attribute access="public" name="sObjectAttachedFiles" type="List" default="[]"/>
+    <aura:attribute access="public" name="firstStep" type="Boolean" default="true"/>
+    <aura:attribute access="public" name="uploadedFiles" type="List" default=""/>
+    <!--  dane z formularza  -->
+    <aura:attribute access="public" name="formOriginalTitle" type="String" default=""/>
+    <aura:attribute access="public" name="formMovieLanguage" type="String" default=""/>
+    <aura:attribute access="public" name="formAdultMovie" type="Boolean" default="false"/>
 
     <aura:handler event="c:eventPassQueryStringAndSearchType" action="{!c.catchQueryAndReturnResultsFromApi}"/>
-<!--    to wyłącza spiner ?? -->
+    <aura:handler event="c:eventShowFavouriteList" action="{!c.showSpecialList}"/>
+<!--    to wyłącza spiner  -->
     <aura:registerEvent name="toggleSpinner" type="c:toggleSpinner"/>
 
     <lightning:card>
@@ -22,11 +38,74 @@
                     </lightning:layoutItem>
                 </aura:iteration>
 
-                <!--    wyświetlanie                //przekazanie gdy pusta lista-->
                 <aura:if isTrue="{!v.showSBCWindow}">
-                    <div> <p> nie znalezniono, filmu chcesz go dodać ?</p></div>
-                </aura:if>
+                    <aura:if isTrue="{! equals(v.typeOfResults, 'Search') }">
 
+                        <div style="margin:15px; text-align:center; width:100%; font-size: 2em;">
+                            <p> OH NO ! We can't find this movie.</p>
+                            <p> Do you wanna add this movie ?</p>
+                        </div>
+
+                        <aura:if isTrue="{! v.firstStep}">
+                            <div class="addMovieForm">
+                                <div style="margin-bottom: 15px;">
+                                    <lightning:input value="{! v.inputQuery}"
+                                                     name="addNewMovie"
+                                                     label="Movie Title:"
+                                                     placeholder="Title"
+                                                     disabled="true"/>
+                                    <lightning:input value="{! v.formOriginalTitle}"
+                                                     name="Original title"
+                                                     label="Original title:"/>
+                                    <lightning:input value="{! v.formMovieLanguage}"
+                                                     name="Movie language"
+                                                     label="Movie language:"/>
+                                    <lightning:input value="{! v.formAdultMovie}"
+                                                     type="checkbox"
+                                                     name="Adult movie"
+                                                     label="Is this movie for adults ?"/>
+                                </div>
+
+                                <lightning:button variant="brand" label="Next" title="Show favourite movies"
+                                                  onclick="{! c.addMovieToDBOnlyTextualData }"/>
+                            </div>
+                        </aura:if>
+
+                        <aura:if isTrue="{! v.firstStep == false}">
+                            <div class="addMovieForm">
+                            <lightning:fileUpload name="fileUploader"
+                                                  label="Movie poster file:"
+                                                  multiple="{!v.multiple}"
+                                                  accept="{!v.accept}"
+                                                  disabled="{!v.disabled}"
+                                                  recordId="{!v.sObjectId}"
+                                                  onuploadfinished="{!c.handleUploadFinished}"/>
+                            <lightning:layout multipleRows="true">
+                                <aura:iteration items="{!v.sObjectAttachedFiles}" var="file">
+                                    <lightning:layoutItem class="slds-m-left_xx-large" padding="around-small">
+                                        <div>
+                                            <lightning:fileCard fileId="{!file.Id}" description="{!file.Title}"/>
+                                        </div>
+                                    </lightning:layoutItem>
+                                </aura:iteration>
+                            </lightning:layout>
+                            <lightning:button variant="brand" label="Finish" title="Show favourite movies"
+                                              onclick="{! c.assignImageToMovie }"/>
+
+                            </div>
+                        </aura:if>
+
+                    </aura:if>
+
+                    <aura:if isTrue="{! equals(v.typeOfResults, 'Favourite') }">
+                        <div style="margin:15px; text-align:center; width:100%; font-size: 2em;"> <p> You haven't added your favorite movies yet.</p></div>
+                    </aura:if>
+
+                    <aura:if isTrue="{! equals(v.typeOfResults, 'BlackList') }">
+                        <div style="margin:15px; text-align:center; width:100%; font-size: 2em;"> <p> You haven't added movies to black list yet.</p></div>
+                    </aura:if>
+
+                </aura:if>
 
             </lightning:layout>
         </div>

@@ -44,3 +44,24 @@
     padding:10px;
     font-size:1.25em;
 }
+
+.THIS .btnsFavouriteAndBlackList {
+    background:rgba(0,0,0,0.4);
+    position: absolute;
+    bottom: 10px;
+}
+.THIS .btnsFavouriteAndBlackList .slds-button__icon{
+    fill: #fff;
+}
+.THIS .btnsFavouriteAndBlackList .active .slds-button__icon{
+    fill: #fe9339;
+}
+.THIS .btnsFavouriteAndBlackList .active .slds-button__icon,
+.THIS .btnsFavouriteAndBlackList .slds-button:hover .slds-button__icon,
+.THIS .btnsFavouriteAndBlackList .slds-button:focus .slds-button__icon{
+    fill: #fe9339;
+}
+.THIS .btnsFavouriteAndBlackList .slds-button[disabled] .slds-button__icon,
+.THIS .btnsFavouriteAndBlackList .slds-button:disabled  .slds-button__icon{
+    fill: #7d7d7d;
+}

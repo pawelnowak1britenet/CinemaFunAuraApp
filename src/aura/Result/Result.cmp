@@ -1,6 +1,7 @@
-<aura:component description="Result"
-                implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
-                access="global">
+<aura:component controller="CF_MovieCredits"
+        description="Result"
+            implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
+            access="global">
 
     <aura:attribute name="item" type="Object"/>
     <aura:attribute name="searchMovies" type="String"/>
@@ -9,17 +10,63 @@
 
     <div class="slds-box slds-col" onclick="{! c.showModal }">
         <aura:if isTrue="{! equals(v.searchMovies, 'Movie') }">
-            <div class="movieResult searchResult">
+            <div style="height:100%" class="movieResult searchResult">
                 <aura:if isTrue="{! equals(v.item.backdrop_path, null) }">
-                    <img src="{!$Resource.defaultMovie}"/>
+                    <img style="height:315px;width:auto" src="{!$Resource.defaultMovie}"/>
                     <aura:set attribute="else">
-                        <img src="{!'https://www.themoviedb.org/t/p/w220_and_h330_face' + v.item.backdrop_path}"/>
+                        <img src="{!v.item.backdrop_path}"/>
                     </aura:set>
                 </aura:if>
                 <div class="textContainer">
                     <h2>{!v.item.title}</h2>
                     <p>{!v.item.vote_average}</p>
                     <p>{!v.item.popularity}</p>
+                </div>
+
+                <div class="btnsFavouriteAndBlackList" >
+                    <aura:if isTrue="{!v.item.isFavourite}">
+                        <lightning:buttonIcon variant="container"
+                                              iconName="utility:favorite"
+                                              alternativeText="Remove From Favorites"
+                                              title="Remove From Favorites"
+                                              class="active"
+                                              onclick="{! c.deleteFavorite }"/>
+                        <lightning:buttonIcon variant="container"
+                                              iconName="utility:error"
+                                              alternativeText="Add To Black List"
+                                              title="Add To Black List"
+                                              onclick="{! c.addToBlackList }"
+                                              disabled="true"/>
+                        <aura:set attribute="else">
+
+                            <aura:if isTrue="{!v.item.isBanned}">
+                                <lightning:buttonIcon variant="container"
+                                                      iconName="utility:favorite"
+                                                      alternativeText="Add To Favorites"
+                                                      title="Add To Favorites"
+                                                      disabled="true"
+                                                      onclick="{! c.addToFavorites }"/>
+                                <lightning:buttonIcon variant="container"
+                                                      class="active"
+                                                      iconName="utility:error"
+                                                      alternativeText="Remove From Black List"
+                                                      title="Remove From Black List"
+                                                      onclick="{! c.removeFromBlackList }"/>
+                                <aura:set attribute="else">
+                                    <lightning:buttonIcon variant="container"
+                                                          iconName="utility:favorite"
+                                                          alternativeText="Add To Favorites"
+                                                          title="Add To Favorites"
+                                                          onclick="{! c.addToFavorites }"/>
+                                    <lightning:buttonIcon variant="container"
+                                                          iconName="utility:error"
+                                                          alternativeText="Add To Black List"
+                                                          title="Add To Black List"
+                                                          onclick="{! c.addToBlackList }"/>
+                                </aura:set>
+                            </aura:if>
+                        </aura:set>
+                    </aura:if>
                 </div>
             </div>
         </aura:if>

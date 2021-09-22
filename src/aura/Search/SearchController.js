@@ -7,38 +7,47 @@
          newEvent.setParams(
              {
                  "inputQuery" : component.get("v.queryString"),
-                 "searchMovies" : component.get("v.searchMovies")
+                 "searchMovies" : component.get("v.searchMovies"),
+                 "typeOfResults" : 'Search'
              }
          );
          newEvent.fire();
-         //WYWYOŁANIE ASYNC DZIAŁA
-//         var showSuccessToast = component.get('c.showToast');
-//         $A.enqueueAction(showSuccessToast);
-//       TODO helper.nazwa
      },
 
     showFavourities : function(component, event, helper){
-
-    }
+         var cmpEvent = component.getEvent("toggleSpinner");
+         cmpEvent.fire();
+         var newEvent = $A.get("e.c:eventShowFavouriteList");
+         newEvent.setParams(
+             {
+                 "showBlackList" : false,
+                 "showFavourite" : true,
+             }
+         );
+         newEvent.fire();
+    },
 
     showBlackList : function(component, event, helper){
+         var cmpEvent = component.getEvent("toggleSpinner");
+         cmpEvent.fire();
+         var newEvent = $A.get("e.c:eventShowFavouriteList");
+         newEvent.setParams(
+             {
+                 "showBlackList" : true,
+                 "showFavourite" : false,
+             }
+         );
+         newEvent.fire();
+    },
 
-    }
-
-
-//     showToast : function(component, event, helper) {
-//         var toastEvent = $A.get("e.force:showToast");
-//         toastEvent.setParams({
-//             "title": "Success!",
-//             "type": "success",
-//             "message": "The record has been updated successfully."
-//         });
-//         toastEvent.fire();
-//     }
-
-//  OPIS    f-cja pomocnicza do pokazania v.queryString
-//          pokaValue : function(component, event, helper){
-//               var zmienna = component.get("v.queryString");
-//        }
+     showToast : function(component, event, helper) {
+         var toastEvent = $A.get("e.force:showToast");
+         toastEvent.setParams({
+             "title": "Success!",
+             "type": "success",
+             "message": "Movie has been added successfully."
+         });
+         toastEvent.fire();
+     }
 
 })

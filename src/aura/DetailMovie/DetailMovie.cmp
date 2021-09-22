@@ -1,0 +1,88 @@
+<aura:component controller="CF_MovieCredits"
+        description="DetailMovie">
+
+    <aura:attribute name="recordId" type="String" access="public"/>
+    <aura:attribute name="item" type="Object"/>
+    <aura:attribute name="movieCast" type="List"/>
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+<!--    <aura:registerEvent name="passDataToResultDetail" type="c:passDataToResultDetail"/>-->
+
+    <div class="detailWrapper">
+        <a></a>
+        <div class="leftSide">
+            <div class="containerForImg">
+                <aura:if isTrue="{! equals(v.item.backdrop_path, null) }">
+                    <img height="" src="{!$Resource.defaultMovie}"/>
+                    <aura:set attribute="else">
+<!--                    //UWAGA src - Movie isInternal/external i będzie inne URL-->
+                        <img src="{!'https://www.themoviedb.org/t/p/w220_and_h330_face' + v.item.backdrop_path}"/>
+                    </aura:set>
+                </aura:if>
+            </div>
+            <div class="btnsFavouriteAndBlackList" >
+                <aura:if isTrue="{!v.item.isFavourite}">
+                    <lightning:buttonIcon variant="container"
+                                          iconName="utility:favorite"
+                                          alternativeText="Remove From Favorites"
+                                          title="Remove From Favorites"
+                                          class="active"
+                                          onclick="{! c.deleteFavorite }"/>
+                    <lightning:buttonIcon variant="container"
+                                          iconName="utility:error"
+                                          alternativeText="Add To Black List"
+                                          title="Add To Black List"
+                                          onclick="{! c.addToBlackList }"
+                                          disabled="true"/>
+                    <aura:set attribute="else">
+
+                        <aura:if isTrue="{!v.item.isBanned}">
+                            <lightning:buttonIcon variant="container"
+                                                  iconName="utility:favorite"
+                                                  alternativeText="Add To Favorites"
+                                                  title="Add To Favorites"
+                                                  disabled="true"
+                                                  onclick="{! c.addToFavorites }"/>
+                            <lightning:buttonIcon variant="container"
+                                                  class="active"
+                                                  iconName="utility:error"
+                                                  alternativeText="Remove From Black List"
+                                                  title="Remove From Black List"
+                                                  onclick="{! c.removeFromBlackList }"/>
+                            <aura:set attribute="else">
+                                <lightning:buttonIcon variant="container"
+                                                      iconName="utility:favorite"
+                                                      alternativeText="Add To Favorites"
+                                                      title="Add To Favorites"
+                                                      onclick="{! c.addToFavorites }"/>
+                                <lightning:buttonIcon variant="container"
+                                                      iconName="utility:error"
+                                                      alternativeText="Add To Black List"
+                                                      title="Add To List"
+                                                      onclick="{! c.addToBlackList }"/>
+                            </aura:set>
+                        </aura:if>
+                    </aura:set>
+                </aura:if>
+            </div>
+        </div>
+
+        <div class="rightSide">
+
+            <p>Title:{!v.item.title}</p>
+            <p>Rating:{!v.item.vote_average}</p>
+            <p>Popularity:{!v.item.popularity}</p>
+<!--             //KONIEC//&ndash;&gt;-->
+        </div>
+    </div>
+
+    <div class="listOFActors">
+        <aura:iteration items="{!v.movieCast}" var="actorTile">
+            <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="4" largeDeviceSize="3"
+                                  padding="around-small">
+                <c:DetailActorSmallTile actorTile="{!actorTile}" />
+                <div class="anotherActorFromCurrentMovie" > {!actorTile.name} </div>
+            </lightning:layoutItem>
+        </aura:iteration>
+    </div>
+
+</aura:component>

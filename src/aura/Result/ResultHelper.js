@@ -1,12 +1,10 @@
 ({
-    addToFavorites : function(component, event, helper){
+    addToFavorites : function(component, event){
         var movieToAdd = component.get("c.addClickedMovieToFavourities");
-        var callback = function(apexResponse, component){
-             let state = apexResponse.getState();
-             let result = apexResponse.getReturnValue();
 
-             if(state == 'SUCCESS') {
-                 component.set("v.ApiResults", result);
+        var callback = function(apexResponse, component){
+             if(apexResponse.getState() == 'SUCCESS') {
+                 component.set("v.ApiResults", apexResponse.getReturnValue());
 
                  var toastEvent = $A.get("e.force:showToast");
                  toastEvent.setParams({
@@ -19,6 +17,7 @@
                   cmpEvent.fire();
              }
         };
+
         movieToAdd.setParams({
             "movieId" : component.get("v.item.id"),
             "movieTitle" : component.get("v.item.title"),
@@ -32,6 +31,7 @@
 
     removeFromFavorites: function(component, event){
         var movieToRemove = component.get("c.removeClickedMovieFromFavourities");
+
         var callback = function(apexResponse, component){
              if(apexResponse.getState() == 'SUCCESS') {
                  component.set("v.ApiResults", apexResponse.getReturnValue());
@@ -47,14 +47,17 @@
                   cmpEvent.fire();
              }
         };
+
         movieToRemove.setParams({
            "movieId" : component.get("v.item.id"),
         });
         movieToRemove.setCallback(this, callback);
         $A.enqueueAction(movieToRemove);
         },
+
 //BLACK LISTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-        addToBlackList : function(component, event, helper){
+
+    addToBlackList : function(component, event, helper){
             var movieToAdd = component.get("c.addClickedMovieToBlackList");
             var callback = function(apexResponse, component){
                  let state = apexResponse.getState();
@@ -84,6 +87,7 @@
             movieToAdd.setCallback(this, callback);
             $A.enqueueAction(movieToAdd);
         },
+
 
     removeFromBlackList: function(component, event){
         var movieToRemove = component.get("c.removeClickedMovieFromBlackList");

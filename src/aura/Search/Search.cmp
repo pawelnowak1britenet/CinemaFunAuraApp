@@ -10,6 +10,7 @@
     <aura:attribute name="searchMovies" type="String" default="Movie"/>
 
     <aura:registerEvent name="eventPassQueryStringAndSearchType" type="c:eventPassQueryStringAndSearchType"/>
+    <aura:registerEvent name="eventShowFavouriteList" type="c:eventShowFavouriteList"/>
     <aura:registerEvent name="toggleSpinner" type="c:toggleSpinner"/>
 
     <lightning:card>
@@ -25,20 +26,20 @@
             </div>
             <div class="SearchInput">
                 <lightning:input value="{! v.queryString}" type="search" name="input1" label=""
-                                 placeholder="Search ..."/>
+                                 placeholder="Search..."/>
 <!--                //custom labelka-->
             </div>
 
             <div class="btnSearch">
-                <lightning:button variant="brand" label="Search" title="Brand action"
+                <lightning:button variant="brand" label="Search" title=""
                                   onclick="{! c.onSearchClick }"/>
             </div>
 
             <div class="btnsFavouriveBlackList">
-                <lightning:button variant="brand" label="Favourities" title="Brand action"
+                <lightning:button variant="brand" label="Favourities" title="Show favourite movies"
                                   onclick="{! c.showFavourities }"/>
 
-                <lightning:button variant="brand" label="Black List" title="Dislike"
+                <lightning:button variant="brand" label="Black List" title="Show dislike movies"
                                   onclick="{! c.showBlackList }"/>
             </div>
         </div>

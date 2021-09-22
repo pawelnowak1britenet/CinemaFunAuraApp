@@ -32,15 +32,19 @@ public class CF_MovieDbApiHandler {
             CF_PageResults_Movie res = (CF_PageResults_Movie) System.JSON.deserialize(response.getBody() , CF_PageResults_Movie.class);
             moviesList = res.results;
         }
+        for(CF_Movie_DTO move: moviesList) {
+            move.backdrop_path = move.backdrop_path == null? null : 'https://www.themoviedb.org/t/p/w220_and_h330_face' + move.backdrop_path;
+        }
         return moviesList;
     }
 
-    public List<CF_Actor_DTO> getActors(String movieName, Integer page) {
+    public List<CF_Actor_DTO> getActors(String actorName, Integer page) {
         CF_Actor_DTO[] actorsList = new CF_Actor_DTO[]{};
 
         Http httpActorDb = new Http();
         HttpRequest request = new HttpRequest();
-        request.setEndpoint(this.buildUrl('person', movieName, page));
+        request.setEndpoint(this.buildUrl('person', actorName, page));
+        System.debug('url >' + this.buildUrl('person', actorName, page));
         request.setMethod('GET');
         HttpResponse response;
         try {
