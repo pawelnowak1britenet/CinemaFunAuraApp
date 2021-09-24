@@ -4,7 +4,7 @@
 
     <div class="detailActorSmallTile anotherActorFromCurrentMovie" onclick="{! c.openActorDetail}">
         <aura:if isTrue="{! equals(v.actorTile.profile_path, null) }">
-            <img src="{!$Resource.defaultMovie}"/>
+            <img src="{!$Resource.defaultActorDark}"/>
             <aura:set attribute="else">
                 <img src="{!'https://www.themoviedb.org/t/p/w220_and_h330_face' + v.actorTile.profile_path}"/>
             </aura:set>

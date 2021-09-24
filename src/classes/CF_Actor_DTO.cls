@@ -1,6 +1,5 @@
 public with sharing class CF_Actor_DTO {
 
-    //todo dodać zdjęcie w bazie danych
     public CF_Actor_DTO(Actor__c actor){
         this.adult = actor.Adult__c;
         this.gender = Integer.valueOf(actor.Gender__c);
@@ -18,6 +17,10 @@ public with sharing class CF_Actor_DTO {
     @AuraEnabled public String name{ get; set; }    //Nicolas Cage
     @AuraEnabled public Double popularity{ get; set; }    //24.027
     @AuraEnabled public String profile_path{ get; set; }    ///ar33qcWbEgREn07ZpXv5Pbj8hbM.jpg
+    @AuraEnabled public String place_of_birth{ get; set; }    ///ar33qcWbEgREn07ZpXv5Pbj8hbM.jpg
+    @AuraEnabled public String birthday{ get; set; }    ///ar33qcWbEgREn07ZpXv5Pbj8hbM.jpg
+    @AuraEnabled public String deathday{ get; set; }    ///ar33qcWbEgREn07ZpXv5Pbj8hbM.jpg
+    @AuraEnabled public String biography{ get; set; }    ///ar33qcWbEgREn07ZpXv5Pbj8hbM.jpg
 
 
 }

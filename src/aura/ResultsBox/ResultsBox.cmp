@@ -8,8 +8,9 @@
     <aura:attribute name="inputQuery" type="String"/>
     <aura:attribute name="showSBCWindow" type="Boolean" default="false"/>
     <aura:attribute name="typeOfResults" type="String"/>
+    <aura:attribute name="showApproved" type="Boolean" default="false"/>
     <aura:attribute name="pictureSrc" type="String"
-                    default="https://s3-us-west-1.amazonaws.com/sfdc-demo/image-placeholder.png"/>
+                    default="https://s3-us-west-1.amazonaws.com/sfdsc-demo/image-placeholder.png"/>
     <aura:attribute access="public" name="multiple" type="Boolean" default="false"/>
     <aura:attribute access="public" name="accept" type="List"
                     default="['.jpg', '.jpeg', '.pdf','.png']"/>
@@ -24,17 +25,23 @@
     <aura:attribute access="public" name="formAdultMovie" type="Boolean" default="false"/>
 
     <aura:handler event="c:eventPassQueryStringAndSearchType" action="{!c.catchQueryAndReturnResultsFromApi}"/>
-    <aura:handler event="c:eventShowFavouriteList" action="{!c.showSpecialList}"/>
+<!--//rename na show special List-->
+    <aura:handler event="c:eventShowSpecialMovieList" action="{!c.showSpecialList}"/>
 <!--    to wyłącza spiner  -->
     <aura:registerEvent name="toggleSpinner" type="c:toggleSpinner"/>
 
     <lightning:card>
+        <aura:if isTrue="{! equals(v.typeOfResults, null) }">
+            <div style="text-align:center">
+                <img style="height:190px;width:auto;margin-top:55px;" src="{!$Resource.CF_logo}"/>
+            </div>
+        </aura:if>
         <div class="c-container">
             <lightning:layout multipleRows="true">
                 <aura:iteration items="{!v.ApiResults}" var="item">
                     <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="4" largeDeviceSize="3"
                                           padding="around-small">
-                        <c:Result item="{!item}" searchMovies="{!v.searchMovies}"/>
+                        <c:Result item="{!item}" searchMovies="{!v.searchMovies}" refresh="{!c.onRefresh}" showApproved="{!v.showApproved}"/>
                     </lightning:layoutItem>
                 </aura:iteration>
 
@@ -95,6 +102,10 @@
                             </div>
                         </aura:if>
 
+                    </aura:if>
+
+                    <aura:if isTrue="{! equals(v.typeOfResults, 'MyMovies') }">
+                        <div style="margin:15px; text-align:center; width:100%; font-size: 2em;"> <p> You haven't added any movie yet.</p></div>
                     </aura:if>
 
                     <aura:if isTrue="{! equals(v.typeOfResults, 'Favourite') }">

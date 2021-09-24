@@ -1,11 +1,28 @@
-.THIS {
+.THIS .detailWrapper {
     display:flex;
+}
+
+.THIS .leftSide{
+    position:relative;
+}
+.THIS .rightSide{
+    flex-basis: 55%;
 }
 
 .THIS .otherActorMovie{
     cursor:pointer;
     display:inline-block;
 }
+.THIS .listOFMovies img{
+    height: 185px;
+    width: auto;
+}
 .THIS .listOFMovies{
     overflow: auto;
+    display: flex;
+    padding-top: 15px;
+}
+.THIS .smallDetailActorWrapper{
+    height: 227px;
+    overflow: hidden;
 }

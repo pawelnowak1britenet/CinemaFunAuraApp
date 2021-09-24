@@ -4,7 +4,7 @@
 
     <div class="detailMovieSmallTile otherActorMovie" onclick="{! c.openMovieDetail}">
         <aura:if isTrue="{! equals(v.otherMovieTile.backdrop_path, null) }">
-            <img src="{!$Resource.defaultMovie}"/>
+            <img style="height:192px" src="{!$Resource.defaultMovieDark2}"/>
 <!--            // todo - ZMIENIĆ NA DEFAULT ACTOR-->
             <aura:set attribute="else">
                 <img src="{!'https://www.themoviedb.org/t/p/w220_and_h330_face' + v.otherMovieTile.backdrop_path}"/>

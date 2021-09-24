@@ -2,17 +2,18 @@ public with sharing class CF_SearchForMovieActor {
 
     @AuraEnabled
     public static List<CF_Movie_DTO> getMoviesList(String searchQuery){
-        System.debug('To jest parametr przekazany z INPUT Search > ' + searchQuery);
         CF_MovieDbApiHandler apiHelper = new CF_MovieDbApiHandler();
-        String variableToClearSpaces = searchQuery.replace(' ', '%20');
-        List<CF_Movie_DTO> movieDTOList = apiHelper.getMovies(variableToClearSpaces, 1);
+        String variableToClearSpaces = searchQuery != null ? searchQuery.replace(' ', '%20') : '%20';
+        List<CF_Movie_DTO> movieDTOList = new List<CF_Movie_DTO>();
+        List<CF_Movie_DTO> movieDTOFromApiList = apiHelper.getMovies(variableToClearSpaces, 1);
         List<MovieSpecial__c> specialMoviesList;
         Map<String, MovieSpecial__c> favouriteMoviesMap = new Map<String, MovieSpecial__c>();
         Map<String, MovieSpecial__c> bannedMoviesMap = new Map<String, MovieSpecial__c>();
 
+        searchQuery += '%';
         List<Movie__c> movies = Database.query('SELECT Id, Name, Adult__c, Title__c, Original_language__c, ' +
                 'Original_title__c, Popularity__c, Release_date__c, Vote_average__c, ' +
-                'Vote_count__c, PhotoId__c FROM Movie__c WHERE Name LIKE :searchQuery');
+                'Vote_count__c, PhotoId__c, isInternal__c, Approved__c FROM Movie__c WHERE Name LIKE :searchQuery');
 
         for (Movie__c movie : movies){
             CF_Movie_DTO movieDTO = new CF_Movie_DTO(movie);
@@ -20,8 +21,11 @@ public with sharing class CF_SearchForMovieActor {
             movieDTOList.add(movieDTO);
         }
 
+        for (CF_Movie_DTO movieFromAPI : movieDTOFromApiList){
+            movieDTOList.add(movieFromAPI);
+        }
+
         specialMoviesList = [SELECT MovieId__c, isFavourite__c, isBan__c, UserId__c FROM MovieSpecial__c WHERE UserId__c = :UserInfo.getUserId()];
-        System.debug('ulubione filmy LISTA >> ' + specialMoviesList);
 
         for(MovieSpecial__c specialMovie : specialMoviesList){
             if(specialMovie.isFavourite__c == true){
@@ -40,7 +44,6 @@ public with sharing class CF_SearchForMovieActor {
                 movie.isBanned = true;
             }
         }
-
         return movieDTOList;
     }
 
@@ -50,6 +53,7 @@ public with sharing class CF_SearchForMovieActor {
         String variableToClearSpaces = searchQuery.replace(' ', '%20');
         List<CF_Actor_DTO> actorsDTOList = apiHelper.getActors(variableToClearSpaces, 1);
 
+        searchQuery += '%';
         List<Actor__c> actors = Database.query('SELECT Id, Name, Adult__c, Gender__c, Popularity__c, Known_for_department__c FROM Actor__c WHERE Name LIKE :searchQuery');
         for (Actor__c actor : actors){
             CF_Actor_DTO actorDTO = new CF_Actor_DTO(actor);
@@ -83,6 +87,17 @@ public with sharing class CF_SearchForMovieActor {
     }
 
     @AuraEnabled
+    public static List<CF_Movie_DTO> getMyMovies(){
+        List<Movie__c> moviesSpecialList = [SELECT Id, Name,Adult__c,Original_language__c,Original_title__c,Release_date__c, Popularity__c,Title__c, Vote_average__c,Vote_count__c,PhotoId__c,isInternal__c,Approved__c, OwnerId FROM Movie__c WHERE OwnerId = :Userinfo.getUserId()];
+        List<CF_Movie_DTO> moviesSpecialToBeShown = new List<CF_Movie_DTO>();
+        for(Movie__c oneMovieSpecial : moviesSpecialList){
+            CF_Movie_DTO movieToBeShown = new CF_Movie_DTO(oneMovieSpecial);
+            moviesSpecialToBeShown.add(movieToBeShown);
+        }
+        return moviesSpecialToBeShown;
+    }
+
+    @AuraEnabled
     public static String addMovieToSalesforceOnlyTextualData(String movieTitle, String originalTitle, String movieLanguage, Boolean adultMovie) {
         Movie__c newMovie = new Movie__c();
         newMovie.Name = movieTitle;
@@ -101,7 +116,8 @@ public with sharing class CF_SearchForMovieActor {
     public static void updateImage(String movieId, String imageId) {
         Movie__c newMovie = new Movie__c();
         newMovie.Id = movieId;
-        newMovie.PhotoId__c = 'https://britenet-9e-dev-ed--c.documentforce.com/servlet/servlet.FileDownload?file=' + imageId;
+        newMovie.PhotoId__c = movieId != null ? '/sfc/servlet.shepherd/document/download/' + imageId : null;
+        newMovie.isInternal__c = true;
         update newMovie;
     }
 }

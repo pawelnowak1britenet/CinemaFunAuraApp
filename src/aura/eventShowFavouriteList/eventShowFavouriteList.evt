@@ -1,4 +1,0 @@
-<aura:event type="APPLICATION" description="eventShowFavouriteList">
-    <aura:attribute name="showFavourite" type="Boolean"/>
-    <aura:attribute name="showBlackList" type="Boolean"/>
-</aura:event>

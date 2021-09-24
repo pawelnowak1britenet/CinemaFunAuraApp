@@ -10,7 +10,7 @@
     <aura:attribute name="searchMovies" type="String" default="Movie"/>
 
     <aura:registerEvent name="eventPassQueryStringAndSearchType" type="c:eventPassQueryStringAndSearchType"/>
-    <aura:registerEvent name="eventShowFavouriteList" type="c:eventShowFavouriteList"/>
+    <aura:registerEvent name="eventShowSpecialMovieList" type="c:eventShowSpecialMovieList"/>
     <aura:registerEvent name="toggleSpinner" type="c:toggleSpinner"/>
 
     <lightning:card>
@@ -36,11 +36,18 @@
             </div>
 
             <div class="btnsFavouriveBlackList">
-                <lightning:button variant="brand" label="Favourities" title="Show favourite movies"
-                                  onclick="{! c.showFavourities }"/>
+                <lightning:button variant="brand" label="My Movies" title=""
+                                  onclick="{! c.showMyMovies }"/>
+
+                <lightning:button variant="brand" label="Favourites" title="Show favourite movies"
+                                  onclick="{! c.showFavourities }">
+<!--                    Favourities <lightning:icon iconName="utility:favorite" size="small" alternativeText="Error!" title="Error" />-->
+                </lightning:button>
 
                 <lightning:button variant="brand" label="Black List" title="Show dislike movies"
-                                  onclick="{! c.showBlackList }"/>
+                                  onclick="{! c.showBlackList }">
+<!--                    Black List <lightning:icon iconName="utility:error" size="small" alternativeText="Error!" title="Error" />-->
+                </lightning:button>
             </div>
         </div>
 

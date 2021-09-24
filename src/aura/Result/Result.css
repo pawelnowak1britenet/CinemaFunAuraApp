@@ -1,6 +1,5 @@
 .THIS {
     transition:all 0.2s linear;
-    height:360px;
     width:245px;
     margin:auto;
     padding:0;
@@ -15,13 +14,16 @@
 
 .THIS img{
     width:245px;
+    height: 367px;
     border-radius:0.25rem;
     transition:all 0.2s linear;
     object-fit:cover;
-    object-position: center;
+    object-position: top;
 }
 .THIS .searchResult{
     position: relative;
+    overflow: hidden;
+    height:367px;
 }
 .THIS .searchResult .textContainer{
     position: absolute;
@@ -36,20 +38,39 @@
 }
 
 .THIS h2{
-    margin:10px;
+    /* word-break: break-all; */
     font-size:18px;
 }
 
+
+.THIS button svg{
+    width:1.2rem;
+    height:1.2rem;
+}
+
 .THIS button{
-    padding:10px;
+    width:1.5rem;
     font-size:1.25em;
 }
 
 .THIS .btnsFavouriteAndBlackList {
-    background:rgba(0,0,0,0.4);
     position: absolute;
-    bottom: 10px;
+    bottom: 7px;
+    left:7px;
 }
+.THIS .searchResult .textContainer {
+      text-align: right;
+      padding: 7px 8px 10px 65px;
+      position: absolute;
+      color: #fff;
+      font-size: 12px;
+      right: 0;
+      bottom: 0;
+      left: 0px;
+      background-color: rgb(8 7 7 / 42%);
+      width: 100%;
+  }
+
 .THIS .btnsFavouriteAndBlackList .slds-button__icon{
     fill: #fff;
 }

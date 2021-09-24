@@ -1,9 +1,20 @@
-.THIS {
+.THIS .detailWrapper {
     display:flex;
 }
+.THIS .leftSide button svg{
+    width:1.2rem;
+    height:1.2rem;
+}
 
+.THIS .leftSide button{
+    width:1.5rem;
+    font-size:1.25em;
+}
 .THIS .leftSide{
     position:relative;
+}
+.THIS .rightSide{
+    flex-basis: 55%;
 }
 
 .THIS .btnsFavouriteAndBlackList{
@@ -16,6 +27,12 @@
     display:inline-block;
 }
 
+.THIS .listOFActors img{
+    height: 185px;
+    width: auto;
+}
 .THIS .listOFActors{
     overflow: auto;
+    display: flex;
+    padding-top: 15px;
 }

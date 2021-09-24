@@ -5,84 +5,101 @@
 
     <aura:attribute name="item" type="Object"/>
     <aura:attribute name="searchMovies" type="String"/>
+    <aura:attribute name="refresh" type="Aura.Action"/>
+    <aura:attribute name="showApproved" type="Boolean" default="false"/>
+    <!--    <aura:attribute name="showSpecialListType" type="String"/>-->
+    <aura:registerEvent name="toggleSpinner" type="c:toggleSpinner"/>
 
     <lightning:overlayLibrary aura:id="overlayLib"/>
+    <div class="slds-box slds-col">
+        <div onclick="{! c.showModal }">
 
-    <div class="slds-box slds-col" onclick="{! c.showModal }">
-        <aura:if isTrue="{! equals(v.searchMovies, 'Movie') }">
-            <div style="height:100%" class="movieResult searchResult">
-                <aura:if isTrue="{! equals(v.item.backdrop_path, null) }">
-                    <img style="height:315px;width:auto" src="{!$Resource.defaultMovie}"/>
-                    <aura:set attribute="else">
-                        <img src="{!v.item.backdrop_path}"/>
-                    </aura:set>
-                </aura:if>
-                <div class="textContainer">
-                    <h2>{!v.item.title}</h2>
-                    <p>{!v.item.vote_average}</p>
-                    <p>{!v.item.popularity}</p>
-                </div>
-
-                <div class="btnsFavouriteAndBlackList" >
-                    <aura:if isTrue="{!v.item.isFavourite}">
-                        <lightning:buttonIcon variant="container"
-                                              iconName="utility:favorite"
-                                              alternativeText="Remove From Favorites"
-                                              title="Remove From Favorites"
-                                              class="active"
-                                              onclick="{! c.deleteFavorite }"/>
-                        <lightning:buttonIcon variant="container"
-                                              iconName="utility:error"
-                                              alternativeText="Add To Black List"
-                                              title="Add To Black List"
-                                              onclick="{! c.addToBlackList }"
-                                              disabled="true"/>
+            <aura:if isTrue="{! equals(v.searchMovies, 'Movie') }">
+                <div style="height:100%" class="movieResult searchResult">
+                    <aura:if isTrue="{! equals(v.item.backdrop_path, null) }">
+                        <img src="{!$Resource.defaultMovieDark2}"/>
                         <aura:set attribute="else">
+                            <img src="{!v.item.backdrop_path}"/>
+                        </aura:set>
+                    </aura:if>
+                    <div class="textContainer">
+                        <h2>{!v.item.title}</h2>
+                        <p>{!v.item.vote_average} {!v.item.vote_average == null ? '' : '/10'}</p>
+                    </div>
+                    <div class="btnsFavouriteAndBlackList" >
+                        <aura:if isTrue="{!v.item.isFavourite}">
+                            <lightning:buttonIcon variant="container"
+                                                  iconName="utility:favorite"
+                                                  alternativeText="Remove From Favorites"
+                                                  title="Remove From Favorites"
+                                                  class="active"
+                                                  onclick="{! c.deleteFavorite }"/>
+                            <lightning:buttonIcon variant="container"
+                                                  iconName="utility:error"
+                                                  alternativeText="Add To Black List"
+                                                  title="Add To Black List"
+                                                  onclick="{! c.addToBlackList }"
+                                                  disabled="true"/>
+                            <aura:set attribute="else">
 
-                            <aura:if isTrue="{!v.item.isBanned}">
-                                <lightning:buttonIcon variant="container"
-                                                      iconName="utility:favorite"
-                                                      alternativeText="Add To Favorites"
-                                                      title="Add To Favorites"
-                                                      disabled="true"
-                                                      onclick="{! c.addToFavorites }"/>
-                                <lightning:buttonIcon variant="container"
-                                                      class="active"
-                                                      iconName="utility:error"
-                                                      alternativeText="Remove From Black List"
-                                                      title="Remove From Black List"
-                                                      onclick="{! c.removeFromBlackList }"/>
-                                <aura:set attribute="else">
+                                <aura:if isTrue="{!v.item.isBanned}">
                                     <lightning:buttonIcon variant="container"
                                                           iconName="utility:favorite"
                                                           alternativeText="Add To Favorites"
                                                           title="Add To Favorites"
+                                                          disabled="true"
                                                           onclick="{! c.addToFavorites }"/>
                                     <lightning:buttonIcon variant="container"
+                                                          class="active"
                                                           iconName="utility:error"
-                                                          alternativeText="Add To Black List"
-                                                          title="Add To Black List"
-                                                          onclick="{! c.addToBlackList }"/>
-                                </aura:set>
-                            </aura:if>
+                                                          alternativeText="Remove From Black List"
+                                                          title="Remove From Black List"
+                                                          onclick="{! c.removeFromBlackList }"/>
+                                    <aura:set attribute="else">
+                                        <lightning:buttonIcon variant="container"
+                                                              iconName="utility:favorite"
+                                                              alternativeText="Add To Favorites"
+                                                              title="Add To Favorites"
+                                                              onclick="{! c.addToFavorites }"/>
+                                        <lightning:buttonIcon variant="container"
+                                                              iconName="utility:error"
+                                                              alternativeText="Add To Black List"
+                                                              title="Add To Black List"
+                                                              onclick="{! c.addToBlackList }"/>
+                                    </aura:set>
+                                </aura:if>
+                            </aura:set>
+                        </aura:if>
+                    </div>
+                </div>
+
+            </aura:if>
+
+            <aura:if isTrue="{! equals(v.searchMovies, 'Actor') }">
+                <div style="height:100%"  class="actorResult searchResult">
+                    <aura:if isTrue="{!v.item.profile_path != null}">
+                        <img src="{!'https://www.themoviedb.org/t/p/w300_and_h450_bestv2' + v.item.profile_path}"/>
+                        <aura:set attribute="else">
+                            <img src="{!$Resource.defaultActorDark}"/>
                         </aura:set>
                     </aura:if>
+
+                    <div class="textContainer">
+                        <h2>{!v.item.name}</h2>
+                        <p>{!v.item.popularity}</p>
+                    </div>
                 </div>
-            </div>
+            </aura:if>
+        </div>
+        <aura:if isTrue="{! equals(v.showApproved, true) }">
+            <aura:if isTrue="{! v.item.approved}">
+                <p style="font-size:17px; color:#41d929">Movie is approved.</p>
+                <aura:set attribute="else">
+                    <p style="font-size:17px; color:#fc3714;margin-top:10px">Movie is not approved.</p>
+                </aura:set>
+
+            </aura:if>
         </aura:if>
-
-        <aura:if isTrue="{! equals(v.searchMovies, 'Actor') }">
-            <div class="actorResult searchResult">
-                <aura:if isTrue="{!v.item.profile_path != null}">
-                    <img src="{!'https://www.themoviedb.org/t/p/w300_and_h450_bestv2' + v.item.profile_path}"/>
-                </aura:if>
-
-                <div class="textContainer">
-                    <h2>{!v.item.name}</h2>
-                    <p>{!v.item.popularity}</p>
-                </div>
-            </div>
-        </aura:if>
-
     </div>
+
 </aura:component>

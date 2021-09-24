@@ -10,6 +10,8 @@
                  component.set("v.ApiResults", result);
                  if (result.length == 0){
                      component.set("v.showSBCWindow", true);
+                 } else {
+                     component.set("v.showSBCWindow", false);
                  }
                  var cmpEvent = component.getEvent("toggleSpinner");
                      cmpEvent.fire();
@@ -40,6 +42,8 @@
                  component.set("v.ApiResults", result);
                  if (result.length == 0){
                      component.set("v.showSBCWindow", true);
+                 } else {
+                     component.set("v.showSBCWindow", false);
                  }
                  var cmpEvent = component.getEvent("toggleSpinner");
                      cmpEvent.fire();
@@ -58,6 +62,8 @@
                  component.set("v.ApiResults", result);
                  if (result.length == 0){
                      component.set("v.showSBCWindow", true);
+                 } else {
+                     component.set("v.showSBCWindow", false);
                  }
                  var cmpEvent = component.getEvent("toggleSpinner");
                      cmpEvent.fire();
@@ -66,6 +72,28 @@
         getResultsAction.setCallback(this, callback);
         $A.enqueueAction(getResultsAction);
     },
+
+        getMyMovies: function (component) {
+            var getResultsAction = component.get("c.getMyMovies");
+            var callback = function(apexResponse, component){
+                 let state = apexResponse.getState();
+                 let result = apexResponse.getReturnValue();
+                 //console.log(JSON.stringify(apexResponse.getReturnValue()));
+                 if(state == 'SUCCESS') {
+                     component.set("v.ApiResults", result);
+                     if (result.length == 0){
+                         component.set("v.showSBCWindow", true);
+                     } else {
+                         component.set("v.showSBCWindow", false);
+                     }
+                     var cmpEvent = component.getEvent("toggleSpinner");
+                         cmpEvent.fire();
+                 }
+            };
+            getResultsAction.setCallback(this, callback);
+            $A.enqueueAction(getResultsAction);
+        },
+
     //////////////////////////////////////////////////////////////
     readFile: function (component, helper, file) {
             if (!file) return;

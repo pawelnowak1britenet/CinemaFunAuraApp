@@ -6,16 +6,20 @@
     <aura:attribute name="movieCast" type="List"/>
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
 <!--    <aura:registerEvent name="passDataToResultDetail" type="c:passDataToResultDetail"/>-->
-
+<div>
     <div class="detailWrapper">
         <a></a>
         <div class="leftSide">
             <div class="containerForImg">
                 <aura:if isTrue="{! equals(v.item.backdrop_path, null) }">
-                    <img height="" src="{!$Resource.defaultMovie}"/>
+                    <img src="{!$Resource.defaultMovieDark2}"/>
                     <aura:set attribute="else">
-<!--                    //UWAGA src - Movie isInternal/external i będzie inne URL-->
-                        <img src="{!'https://www.themoviedb.org/t/p/w220_and_h330_face' + v.item.backdrop_path}"/>
+                        <aura:if isTrue="{!v.item.isInternal}">
+                            <img src="{!v.item.backdrop_path}"/>
+                            <aura:set attribute="else">
+                                <img src="{!'https://www.themoviedb.org/t/p/w220_and_h330_face' + v.item.backdrop_path}"/>
+                            </aura:set>
+                        </aura:if>
                     </aura:set>
                 </aura:if>
             </div>
@@ -68,21 +72,22 @@
 
         <div class="rightSide">
 
-            <p>Title:{!v.item.title}</p>
-            <p>Rating:{!v.item.vote_average}</p>
-            <p>Popularity:{!v.item.popularity}</p>
-<!--             //KONIEC//&ndash;&gt;-->
+            <p><b>Title: </b> {!v.item.title}</p>
+            <p><b>Rating: </b> {!v.item.vote_average}</p>
+            <p><b>Popularity: </b> {!v.item.popularity}</p>
+            <p><b>Description: </b>: </p>
+            <p>{!v.item.overview}</p>
         </div>
     </div>
 
     <div class="listOFActors">
         <aura:iteration items="{!v.movieCast}" var="actorTile">
             <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="4" largeDeviceSize="3"
-                                  padding="around-small">
+                                  padding="around-xxx-small">
                 <c:DetailActorSmallTile actorTile="{!actorTile}" />
                 <div class="anotherActorFromCurrentMovie" > {!actorTile.name} </div>
             </lightning:layoutItem>
         </aura:iteration>
     </div>
-
+</div>
 </aura:component>

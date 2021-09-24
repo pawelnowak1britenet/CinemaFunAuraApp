@@ -8,7 +8,9 @@
 
         actorOtherMoviesList.setCallback(this, function(response) {
             if (response.getState() === "SUCCESS") {
-                console.log(response.getReturnValue());
+                console.log(component.get("v.item").name);
+                console.log(component.get("v.item").biography);
+                console.log(component.get("v.item").birthday);
                 component.set("v.otherActorMoviesList", response.getReturnValue());
             }
             else {

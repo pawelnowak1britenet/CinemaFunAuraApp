@@ -13,6 +13,8 @@ public with sharing class CF_Movie_DTO {
         this.vote_count = movie.Vote_count__c != null ? Integer.valueOf(movie.Vote_count__c) : null;
         this.id = movie.Id;
         this.backdrop_path = movie.PhotoId__c;
+        this.isInternal = movie.isInternal__c;
+        this.approved = movie.Approved__c;
     }
 
     public CF_Movie_DTO(MovieSpecial__c movieSpecial) {
@@ -43,6 +45,7 @@ public with sharing class CF_Movie_DTO {
     @AuraEnabled public Boolean isFavourite { get; set; }    //na potrzeby relacji z aktorem np 'movie'
     @AuraEnabled public Boolean isBanned { get; set; }    //na potrzeby relacji z aktorem np 'movie'
     @AuraEnabled public Boolean isInternal { get; set; }    //na potrzeby relacji z aktorem np 'movie'
+    @AuraEnabled public Boolean approved { get; set; }
 
     public static CF_Movie_DTO parse(String json) {
         return (CF_Movie_DTO) System.JSON.deserialize(json, CF_Movie_DTO.class);

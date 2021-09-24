@@ -13,8 +13,7 @@
                      "message": "Movie added to favorites."
                  });
                  toastEvent.fire();
-                  var cmpEvent = component.getEvent("toggleSpinner");
-                  cmpEvent.fire();
+                 $A.enqueueAction( component.get('v.refresh'));
              }
         };
 
@@ -25,6 +24,8 @@
             "popularity" : component.get("v.item.popularity"),
             "vote_average" : component.get("v.item.vote_average")
         });
+          var cmpEvent = component.getEvent("toggleSpinner");
+          cmpEvent.fire();
         movieToAdd.setCallback(this, callback);
         $A.enqueueAction(movieToAdd);
     },
@@ -43,14 +44,16 @@
                      "message": "Movie removed from favorites."
                  });
                  toastEvent.fire();
-                  var cmpEvent = component.getEvent("toggleSpinner");
-                  cmpEvent.fire();
+                 $A.enqueueAction( component.get('v.refresh'));
              }
         };
 
         movieToRemove.setParams({
            "movieId" : component.get("v.item.id"),
         });
+
+          var cmpEvent = component.getEvent("toggleSpinner");
+          cmpEvent.fire();
         movieToRemove.setCallback(this, callback);
         $A.enqueueAction(movieToRemove);
         },
@@ -73,8 +76,7 @@
                          "message": "Movie added to black list."
                      });
                      toastEvent.fire();
-                      var cmpEvent = component.getEvent("toggleSpinner");
-                      cmpEvent.fire();
+                     $A.enqueueAction( component.get('v.refresh'));
                  }
             };
             movieToAdd.setParams({
@@ -85,6 +87,8 @@
                 "vote_average" : component.get("v.item.vote_average")
             });
             movieToAdd.setCallback(this, callback);
+              var cmpEvent = component.getEvent("toggleSpinner");
+              cmpEvent.fire();
             $A.enqueueAction(movieToAdd);
         },
 
@@ -102,13 +106,14 @@
                      "message": "Movie removed from black list."
                  });
                  toastEvent.fire();
-                  var cmpEvent = component.getEvent("toggleSpinner");
-                  cmpEvent.fire();
+                 $A.enqueueAction( component.get('v.refresh'));
              }
         };
         movieToRemove.setParams({
            "movieId" : component.get("v.item.id"),
         });
+          var cmpEvent = component.getEvent("toggleSpinner");
+          cmpEvent.fire();
         movieToRemove.setCallback(this, callback);
         $A.enqueueAction(movieToRemove);
         }

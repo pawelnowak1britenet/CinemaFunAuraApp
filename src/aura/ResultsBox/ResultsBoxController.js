@@ -3,16 +3,42 @@
         component.set("v.searchMovies", event.getParam("searchMovies"));
         component.set("v.inputQuery", event.getParam("inputQuery"));
         component.set("v.typeOfResults", "Search");
+        component.set("v.showApproved", false);
         helper.getSearchResultsToFront(component);
     },
+
     showSpecialList : function(component, event, helper) {
-        component.set("v.searchMovies", 'Movie');
-        if (event.getParam("showFavourite")) {
+        component.set("v.searchMovies", "Movie");
+        var showSpecialListParam = event.getParam('showSpecialListType');
+        console.log(event.getParam('showSpecialListType'));
+        if (event.getParam('showSpecialListType') == 'Favourite') {
             component.set("v.typeOfResults", "Favourite");
+            component.set("v.showApproved", false);
             helper.getFavouriteList(component);
-        } else {
-           component.set("v.typeOfResults", "BlackList");
-           helper.getBlackList(component);
+        }
+        if (event.getParam("showSpecialListType") == 'BlackList') {
+            component.set("v.typeOfResults", "BlackList");
+            component.set("v.showApproved", false);
+            helper.getBlackList(component);
+        }
+        if (event.getParam("showSpecialListType") == 'MyMovies') {
+           component.set("v.typeOfResults", "MyMovies");
+           component.set("v.showApproved", true);
+           helper.getMyMovies(component);
+        }
+    },
+    onRefresh: function(component, event, helper) {
+        if (component.get("v.typeOfResults") == "Search"){
+        helper.getSearchResultsToFront(component);
+        }
+        if (component.get("v.typeOfResults") == "Favourite"){
+        helper.getFavouriteList(component);
+        }
+        if (component.get("v.typeOfResults") == "BlackList"){
+        helper.getBlackList(component);
+        }
+        if (component.get("v.typeOfResults") == "MyMovies"){
+        helper.getMyMovies(component);
         }
     },
 

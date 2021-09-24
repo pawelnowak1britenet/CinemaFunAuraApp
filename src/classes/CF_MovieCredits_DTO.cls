@@ -15,6 +15,14 @@ public with sharing class CF_MovieCredits_DTO {
     @AuraEnabled public Integer cast_id { get; set; }    //24
     @AuraEnabled public String character { get; set; }    //Shrek (voice)
 
+    @AuraEnabled public boolean adult{ get; set; }
+    @AuraEnabled public Integer gender{ get; set; }    //2
+    @AuraEnabled public Double popularity{ get; set; }    //24.027
+    @AuraEnabled public String place_of_birth{ get; set; }    ///ar33qcWbEgREn07ZpXv5Pbj8hbM.jpg
+    @AuraEnabled public String birthday{ get; set; }    ///ar33qcWbEgREn07ZpXv5Pbj8hbM.jpg
+    @AuraEnabled public String deathday{ get; set; }    ///ar33qcWbEgREn07ZpXv5Pbj8hbM.jpg
+    @AuraEnabled public String biography{ get; set; }    ///ar33qcWbEgREn07ZpXv5Pbj8hbM.jpg
+
 //        class cls_crew {
 //            public boolean adult;
 //            public Integer gender;    //2

@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" description="eventShowSpecialMovieList">
+    <aura:attribute name="showSpecialListType" type="String"/>
+</aura:event>
